@@ -1,4 +1,4 @@
-export interface ICEP {
+export interface ICep {
   cep: string;
   logradouro: string;
   complemento: string;

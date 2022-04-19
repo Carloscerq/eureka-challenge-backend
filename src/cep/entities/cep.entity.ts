@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export class CEP {
+export class Cep {
   @PrimaryColumn()
   cep: string;
 
