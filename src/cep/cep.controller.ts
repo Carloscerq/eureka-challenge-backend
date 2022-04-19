@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Logger } from '@nestjs/common';
 import { IGetCep } from './dto/getCepParam.dto';
 import { CepService } from './cep.service';
-import { ICep } from './dto/cep.dto';
+import { Cep } from './entities/cep.entity';
 
 @Controller('')
 export class CepController {
@@ -10,10 +10,10 @@ export class CepController {
   private readonly logger = new Logger('CepController');
 
   @Get('/:cep')
-  getCep(@Param() params: IGetCep): string {
+  async getCep(@Param() params: IGetCep) {
     this.logger.log(`Getting Cep: ${params.cep}`);
 
-    const cepInDb = this.cepService.getCepFromDb(params.cep);
+    const cepInDb = await this.cepService.getCepFromDb(params.cep);
 
     if (cepInDb) {
       this.logger.log(`Cep found in db: ${cepInDb}`);

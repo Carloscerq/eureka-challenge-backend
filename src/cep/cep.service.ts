@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cep } from './entities/cep.entity';
@@ -12,8 +12,16 @@ export class CepService {
     private readonly cepRepository: Repository<Cep>,
   ) {}
 
-  getCepFromDb(cep: string) {
-    return `${cep}`;
+  async getCepFromDb(cep: string): Promise<Cep> {
+    try {
+      const cepFromDb = await this.cepRepository.findOne({
+        where: { cep: cep },
+      });
+      return cepFromDb;
+    } catch (error) {
+      this.logger.error(`Error on getCepFromDb: ${error.message}`);
+      throw new BadRequestException();
+    }
   }
 
   getCepFromApi(cep: string) {
