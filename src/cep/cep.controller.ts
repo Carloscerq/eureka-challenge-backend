@@ -10,19 +10,19 @@ export class CepController {
   private readonly logger = new Logger('CepController');
 
   @Get('/:cep')
-  async getCep(@Param() params: IGetCep) {
+  async getCep(@Param() params: IGetCep): Promise<Cep> {
     this.logger.log(`Getting Cep: ${params.cep}`);
 
     const cepInDb = await this.cepService.getCepFromDb(params.cep);
 
     if (cepInDb) {
-      this.logger.log(`Cep found in db: ${cepInDb}`);
+      this.logger.log(`Cep found in db: ${cepInDb.cep}`);
       return cepInDb;
     }
 
-    const cepFromApi = this.cepService.getCepFromApi(params.cep);
+    const cepFromApi = await this.cepService.getCepFromApi(params.cep);
     this.cepService.addCepToDb(cepFromApi);
-    this.logger.log(`Cep found in api: ${cepFromApi}`);
+    this.logger.log(`Cep found in api: ${cepFromApi.cep}`);
     return cepFromApi;
   }
 }
