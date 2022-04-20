@@ -43,3 +43,25 @@ E depois rodaremos:
 ```bash
 yarn run start:prod
 ```
+
+## Rodando os testes
+
+Podemos rodar dois tipos de testes. Os testes unitários e os testes e2e ( end-to-end ). Para rodar os testes unitários, basta digitar o comando:
+
+```bash
+yarn test
+```
+
+Exemplo de resultado:
+
+![Testes unitários](./assets/unit-tests.png)
+
+Já para os testes e2e, temos:
+
+```bash
+yarn test:e2e
+```
+
+Resultado esperado:
+
+![e2e testes](./assets/e2e-tests.png)
